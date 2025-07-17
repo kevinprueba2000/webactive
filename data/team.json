@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Carlos Mendoza",
+        "role": "CEO &amp;amp;amp; Fundador",
+        "description": "Visionario tecnológico con más de 10 años de experiencia en desarrollo de software y emprendimiento.",
+        "image": "assets\/images\/placeholder.jpg"
+    },
+    {
+        "name": "Ana Rodríguez",
+        "role": "CTO &amp;amp;amp; Desarrolladora",
+        "description": "Experta en tecnologías emergentes y desarrollo de aplicaciones web y móviles innovadoras.",
+        "image": "assets\/images\/placeholder.jpg"
+    },
+    {
+        "name": "Freddy Moyolema",
+        "role": "Productor Aceites Esenciales",
+        "description": "Experto en destilacion de aceites esenciales.",
+        "image": "assets\/images\/team\/68785a8666e85_Screenshot 2025-07-16 210527.png"
+    }
+]
