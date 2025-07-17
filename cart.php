@@ -239,7 +239,7 @@ $product = new Product();
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold mb-3">Contacto</h6>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Latacunga, Ecuador</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Anbato, Ecuador</li>
                         <li><i class="fas fa-phone me-2"></i>+593 983015307</li>
                         <li><i class="fas fa-envelope me-2"></i>kevinmoyolema13@gmail.com</li>
                     </ul>
@@ -251,7 +251,7 @@ $product = new Product();
                     <p class="text-muted mb-0">&copy; 2025 AlquimiaTechnologic. Desarrollado por AlquimiaTechnologic. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Colombia</p>
+                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Ecuador</p>
                 </div>
             </div>
         </div>
@@ -286,17 +286,16 @@ $product = new Product();
                 return;
             }
             
-            // Simulate loading cart items (in real app, this would fetch from API)
+            // Cargar productos del carrito con la información almacenada
             let cartHTML = '';
             let total = 0;
-            
+
             cart.forEach((item, index) => {
-                // Simulate product data (in real app, this would come from database)
                 const product = {
                     id: item.id,
-                    name: `Producto ${item.id}`,
-                    price: 99000,
-                    image: 'assets/images/placeholder.jpg'
+                    name: item.name,
+                    price: item.price,
+                    image: item.image
                 };
                 
                 const itemTotal = product.price * item.quantity;
@@ -360,13 +359,13 @@ $product = new Product();
         
         function updateCartSummary() {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const total = cart.reduce((sum, item) => sum + (99000 * item.quantity), 0);
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
             document.getElementById('subtotal').textContent = `$${total.toLocaleString()}`;
             document.getElementById('total').textContent = `$${total.toLocaleString()}`;
             
             // Update WhatsApp link with cart items
-            const cartItems = cart.map(item => `Producto ${item.id} x${item.quantity}`).join(', ');
+            const cartItems = cart.map(item => `${item.name} x${item.quantity}`).join(', ');
             const whatsappLink = `https://wa.me/593983015307?text=Hola%2C%20quiero%20completar%20mi%20compra%20del%20carrito%20de%20AlquimiaTechnologic%20-%20${encodeURIComponent(cartItems)}%20-%20Total:%20$${total.toLocaleString()}`;
             document.getElementById('whatsapp-checkout').href = whatsappLink;
         }

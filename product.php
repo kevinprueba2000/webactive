@@ -41,6 +41,11 @@ if (empty($productImages)) {
 
 $mainImage = $productImages[0] ?? 'assets/images/placeholder.jpg';
 
+// Calcular precio final teniendo en cuenta descuentos
+$finalPrice = ($productData['discount_percentage'] > 0)
+    ? $productData['price'] * (1 - $productData['discount_percentage'] / 100)
+    : $productData['price'];
+
 // Obtener categoría del producto
 $productCategory = $category->getCategoryById($productData['category_id']);
 
@@ -304,7 +309,7 @@ unset($rp);
                             </div>
 
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary btn-lg hover-lift" onclick="addToCart(<?php echo $productData['id']; ?>)">
+                                <button class="btn btn-primary btn-lg hover-lift" onclick="addToCart(<?php echo $productData['id']; ?>, '<?php echo addslashes($productData['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $mainImage; ?>')">
                                     <i class="fas fa-cart-plus me-2"></i>
                                     Agregar al Carrito
                                 </button>
@@ -382,7 +387,7 @@ unset($rp);
                                                 <li class="mb-2"><strong>Material:</strong> Premium</li>
                                                 <li class="mb-2"><strong>Color:</strong> Varios</li>
                                                 <li class="mb-2"><strong>Garantía:</strong> 30 días</li>
-                                                <li class="mb-2"><strong>Origen:</strong> Colombia</li>
+                                                <li class="mb-2"><strong>Origen:</strong> Ecuador</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -443,7 +448,7 @@ unset($rp);
                                             <ul class="list-unstyled">
                                                 <li class="mb-2">
                                                     <i class="fas fa-check text-success me-2"></i>
-                                                    Todo Colombia
+                                                    Todo Ecuador
                                                 </li>
                                                 <li class="mb-2">
                                                     <i class="fas fa-check text-success me-2"></i>
@@ -478,7 +483,7 @@ unset($rp);
                                                  loading="lazy"
                                                  onerror="this.src='assets/images/placeholder.jpg';">
                                             <div class="product-overlay">
-                                                <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $related['id']; ?>)" title="Agregar al carrito">
+                                                <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $related['id']; ?>, '<?php echo addslashes($related['name']); ?>', <?php echo ($related['discount_percentage'] > 0 ? $related['price'] * (1 - $related['discount_percentage'] / 100) : $related['price']); ?>, '<?php echo $related['image'] ?: 'assets/images/placeholder.jpg'; ?>')" title="Agregar al carrito">
                                                     <i class="fas fa-shopping-cart"></i>
                                                 </button>
                                                 <a href="product.php?id=<?php echo $related['id']; ?>" class="btn btn-light btn-sm hover-glow" title="Ver producto">
@@ -500,7 +505,7 @@ unset($rp);
                                                     <span class="fw-bold text-primary">$<?php echo number_format($related['price'], 0, ',', '.'); ?></span>
                                                 <?php endif; ?>
                                             </div>
-                                            <button class="btn btn-primary btn-sm w-100" onclick="addToCart(<?php echo $related['id']; ?>)">
+                                            <button class="btn btn-primary btn-sm w-100" onclick="addToCart(<?php echo $related['id']; ?>, '<?php echo addslashes($related['name']); ?>', <?php echo ($related['discount_percentage'] > 0 ? $related['price'] * (1 - $related['discount_percentage'] / 100) : $related['price']); ?>, '<?php echo $related['image'] ?: 'assets/images/placeholder.jpg'; ?>')">
                                                 <i class="fas fa-cart-plus me-2"></i>
                                                 Agregar al Carrito
                                             </button>
@@ -565,7 +570,7 @@ unset($rp);
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold mb-3">Contacto</h6>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Latacunga, Ecuador</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Anbato, Ecuador</li>
                         <li><i class="fas fa-phone me-2"></i>+593 983015307</li>
                         <li><i class="fas fa-envelope me-2"></i>kevinmoyolema13@gmail.com</li>
                     </ul>
@@ -577,7 +582,7 @@ unset($rp);
                     <p class="text-muted mb-0">&copy; 2025 AlquimiaTechnologic. Desarrollado por AlquimiaTechnologic. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Colombia</p>
+                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Ecuador</p>
                 </div>
             </div>
         </div>
@@ -617,17 +622,17 @@ unset($rp);
         }
         
         // Add to cart with quantity
-        function addToCart(productId) {
+        function addToCart(productId, name, price, image) {
             const quantity = parseInt(document.getElementById('quantity').value) || 1;
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
+
             const existingItem = cart.find(item => item.id == productId);
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
-                cart.push({ id: productId, quantity: quantity });
+                cart.push({ id: productId, name: name, price: price, image: image, quantity: quantity });
             }
-            
+
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartCount();
             showNotification('Producto agregado al carrito', 'success');

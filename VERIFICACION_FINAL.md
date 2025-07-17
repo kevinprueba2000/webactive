@@ -75,7 +75,7 @@
 
 ### 🗺️ **Google Maps**
 - ✅ Iframe integrado en contacto
-- ✅ Ubicación: Latacunga, Ecuador
+- ✅ Ubicación: Anbato, Ecuador
 
 ## 🧪 **Cómo Verificar el Sistema**
 
