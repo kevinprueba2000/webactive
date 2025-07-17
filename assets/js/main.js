@@ -42,13 +42,18 @@ function updateCartCount() {
 }
 
 function addToCart(productId, name, price, image, quantity = 1) {
-    // Find if product already exists in cart
+    try {
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+    } catch (e) {
+        console.error('Failed to read cart from localStorage', e);
+        cart = cart || [];
+    }
+
     const existingItem = cart.find(item => item.id == productId);
 
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
-        // Store product details for later display
         cart.push({
             id: productId,
             name: name,
@@ -58,15 +63,16 @@ function addToCart(productId, name, price, image, quantity = 1) {
             timestamp: new Date().toISOString()
         });
     }
-    
-    // Save to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Update UI with animations
+
+    try {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (e) {
+        console.error('Failed to save cart to localStorage', e);
+    }
+
     updateCartCount();
+    updateCartDisplay();
     showNotification('🛒 Producto agregado al carrito', 'success');
-    
-    // Add floating animation
     createFloatingCartIcon();
 }
 

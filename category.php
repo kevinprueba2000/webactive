@@ -38,6 +38,7 @@ $totalPages = ceil($totalProducts / $limit);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>const SITE_URL = '<?php echo SITE_URL; ?>';</script>
 </head>
 <body>
     <!-- Navigation -->
@@ -430,7 +431,7 @@ $totalPages = ceil($totalProducts / $limit);
             content.innerHTML = '<div class="text-center py-5"><div class="spinner-border" role="status"></div></div>';
             modal.show();
 
-            fetch('quick_view.php?id=' + productId)
+            fetch(SITE_URL + '/quick_view.php?id=' + productId)
                 .then(res => res.json())
                 .then(data => {
                     if (!data.success) {
