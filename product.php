@@ -309,7 +309,7 @@ unset($rp);
                             </div>
 
                             <div class="d-grid gap-2">
-                                <button class="btn btn-primary btn-lg hover-lift" onclick="addToCart(<?php echo $productData['id']; ?>, '<?php echo addslashes($productData['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $mainImage; ?>')">
+                                <button class="btn btn-primary btn-lg hover-lift" onclick="addToCartWithQuantity(<?php echo $productData['id']; ?>, '<?php echo addslashes($productData['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $mainImage; ?>')">
                                     <i class="fas fa-cart-plus me-2"></i>
                                     Agregar al Carrito
                                 </button>
@@ -621,22 +621,13 @@ unset($rp);
             showNotification('Producto agregado a favoritos', 'success');
         }
         
-        // Add to cart with quantity
-        function addToCart(productId, name, price, image) {
+        // Wrapper to use global addToCart with selected quantity
+        function addToCartWithQuantity(productId, name, price, image) {
             const quantity = parseInt(document.getElementById('quantity').value) || 1;
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            const existingItem = cart.find(item => item.id == productId);
-            if (existingItem) {
-                existingItem.quantity += quantity;
-            } else {
-                cart.push({ id: productId, name: name, price: price, image: image, quantity: quantity });
+            if (typeof window.addToCart === 'function') {
+                window.addToCart(productId, name, price, image, quantity);
             }
-
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartCount();
-            showNotification('Producto agregado al carrito', 'success');
         }
     </script>
 </body>
-</html> 
+</html>

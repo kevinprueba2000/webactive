@@ -177,7 +177,12 @@ $editProductId = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
                                                 
                                                 // Verificar si la imagen existe y no está vacía
                                                 $imgPath = strpos($imageUrl, 'http') === 0 ? $imageUrl : '../' . ltrim($imageUrl, '/');
-                                                $localPath = strpos($imageUrl, 'http') === 0 ? null : __DIR__ . '/../' . ltrim($imageUrl, '/');
+                                                if (strpos($imageUrl, 'http') === 0) {
+                                                    $localPath = null;
+                                                } else {
+                                                    $cleanPath = preg_replace('#^(\.\./)+#', '', ltrim($imageUrl, '/'));
+                                                    $localPath = realpath(__DIR__ . '/../' . $cleanPath) ?: (__DIR__ . '/../' . $cleanPath);
+                                                }
                                                 
                                                 // Si es una imagen local, verificar que existe y no esté vacía
                                                 if ($localPath && (!file_exists($localPath) || filesize($localPath) < 100)) {
