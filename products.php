@@ -535,28 +535,47 @@ $categories = $category->getAllCategories();
 
         // Quick view function
         function quickView(productId) {
-            // Simulate loading product data
             const modal = new bootstrap.Modal(document.getElementById('quickViewModal'));
-            document.getElementById('quickViewContent').innerHTML = `
-                <div class="row">
-                    <div class="col-md-6">
-                        <img src="assets/images/placeholder.jpg" 
-                             class="img-fluid rounded" alt="Producto">
-                    </div>
-                    <div class="col-md-6">
-                        <h4>Producto Ejemplo</h4>
-                        <p class="text-muted">Descripción del producto...</p>
-                        <div class="price mb-3">
-                            <span class="h4 text-primary">$99.000</span>
-                        </div>
-                        <button class="btn btn-primary w-100" onclick="addToCart(${productId}, 'Producto Ejemplo', 99000, 'assets/images/placeholder.jpg')">
-                            <i class="fas fa-cart-plus me-2"></i>
-                            Agregar al Carrito
-                        </button>
-                    </div>
-                </div>
-            `;
+            const content = document.getElementById('quickViewContent');
+            content.innerHTML = '<div class="text-center py-5"><div class="spinner-border" role="status"></div></div>';
             modal.show();
+
+            fetch('quick_view.php?id=' + productId)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.success) {
+                        content.innerHTML = '<p class="text-danger">Error al cargar el producto.</p>';
+                        return;
+                    }
+
+                    const priceHtml = data.discount_percentage > 0
+                        ? `<span class="text-decoration-line-through text-muted me-2">$${Number(data.price).toLocaleString()}</span>
+                           <span class="h4 text-primary">$${Number(data.final_price).toLocaleString()}</span>`
+                        : `<span class="h4 text-primary">$${Number(data.price).toLocaleString()}</span>`;
+
+                    const whatsapp = `https://wa.me/593983015307?text=Hola%2C%20quiero%20comprar%20el%20producto:%20${encodeURIComponent(data.name)}%20-%20$${Number(data.final_price).toLocaleString()}%20-%20AlquimiaTechnologic`;
+
+                    content.innerHTML = `
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <img src="${data.image}" class="img-fluid rounded" alt="${data.name}">
+                            </div>
+                            <div class="col-md-6">
+                                <h4>${data.name}</h4>
+                                <p class="text-muted">${data.description}</p>
+                                <div class="price mb-3">${priceHtml}</div>
+                                <button class="btn btn-primary w-100 mb-2" onclick="addToCart(${data.id}, '${data.name.replace(/'/g, "\'")}', ${data.final_price}, '${data.image}')">
+                                    <i class="fas fa-cart-plus me-2"></i>Agregar al Carrito
+                                </button>
+                                <a href="${whatsapp}" class="btn btn-success w-100" target="_blank">
+                                    <i class="fab fa-whatsapp me-2"></i>Comprar por WhatsApp
+                                </a>
+                            </div>
+                        </div>`;
+                })
+                .catch(() => {
+                    content.innerHTML = '<p class="text-danger">Error al cargar el producto.</p>';
+                });
         }
 
         // Wishlist toggle

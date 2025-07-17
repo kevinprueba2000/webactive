@@ -150,7 +150,7 @@ if ($heroImage && strpos($heroImage, 'http') !== 0) {
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content" data-aos="fade-right" data-aos-duration="1000">
                     <h1 class="hero-title mb-4">
-                        Transforma tu <span class="text-gradient">Mundo</span> con 
+                        Transforma tu <span class="text-danger">Mundo</span> con
                         <span class="text-warning">AlquimiaTechnologic</span>
                     </h1>
                     <p class="hero-subtitle mb-4">
