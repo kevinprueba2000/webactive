@@ -641,7 +641,7 @@ require_once 'config/config.php';
 
                 <div class="col-md-6 text-md-end">
 
-                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Colombia</p>
+                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Ecuador</p>
 
                 </div>
 

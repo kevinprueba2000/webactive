@@ -313,8 +313,9 @@ if ($heroImage && strpos($heroImage, 'http') !== 0) {
                                      class="img-fluid"
                                      loading="lazy"
                                      onerror="this.src='assets/images/placeholder.jpg';">
+                                <?php $finalPrice = (isset($product['discount_percentage']) && $product['discount_percentage'] > 0) ? $product['price'] * (1 - $product['discount_percentage']/100) : $product['price']; ?>
                                 <div class="product-overlay">
-                                    <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $product['id']; ?>)">
+                                    <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $product['id']; ?>, '<?php echo addslashes($product['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $product['image'] ?: 'assets/images/placeholder.jpg'; ?>')">
                                         <i class="fas fa-shopping-cart"></i>
                                     </button>
                                     <button class="btn btn-light btn-sm hover-glow">
@@ -349,7 +350,7 @@ if ($heroImage && strpos($heroImage, 'http') !== 0) {
                                         <?php endfor; ?>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary w-100 mt-3 hover-lift" onclick="addToCart(<?php echo $product['id']; ?>)">
+                                <button class="btn btn-primary w-100 mt-3 hover-lift" onclick="addToCart(<?php echo $product['id']; ?>, '<?php echo addslashes($product['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $product['image'] ?: 'assets/images/placeholder.jpg'; ?>')">
                                     <i class="fas fa-cart-plus me-2"></i>
                                     Agregar al Carrito
                                 </button>

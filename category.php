@@ -200,8 +200,9 @@ $totalPages = ceil($totalProducts / $limit);
                                     <img src="<?php echo $prod['image'] ?: 'assets/images/placeholder.jpg'; ?>" 
                                          alt="<?php echo htmlspecialchars($prod['name']); ?>" 
                                          class="img-fluid">
+                                    <?php $finalPrice = (isset($prod['discount_percentage']) && $prod['discount_percentage'] > 0) ? $prod['price'] * (1 - $prod['discount_percentage']/100) : $prod['price']; ?>
                                     <div class="product-overlay">
-                                        <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $prod['id']; ?>)" title="Agregar al carrito">
+                                        <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $prod['id']; ?>, '<?php echo addslashes($prod['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $prod['image'] ?: 'assets/images/placeholder.jpg'; ?>')" title="Agregar al carrito">
                                             <i class="fas fa-shopping-cart"></i>
                                         </button>
                                         <button class="btn btn-light btn-sm me-2 hover-glow" onclick="quickView(<?php echo $prod['id']; ?>)" title="Vista rápida">
@@ -259,7 +260,7 @@ $totalPages = ceil($totalProducts / $limit);
                                     </div>
                                     
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-primary hover-lift" onclick="addToCart(<?php echo $prod['id']; ?>)">
+                                        <button class="btn btn-primary hover-lift" onclick="addToCart(<?php echo $prod['id']; ?>, '<?php echo addslashes($prod['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $prod['image'] ?: 'assets/images/placeholder.jpg'; ?>')">
                                             <i class="fas fa-cart-plus me-2"></i>
                                             Agregar al Carrito
                                         </button>
@@ -379,7 +380,7 @@ $totalPages = ceil($totalProducts / $limit);
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold mb-3">Contacto</h6>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Latacunga, Ecuador</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Anbato, Ecuador</li>
                         <li><i class="fas fa-phone me-2"></i>+593 983015307</li>
                         <li><i class="fas fa-envelope me-2"></i>kevinmoyolema13@gmail.com</li>
                     </ul>
@@ -391,7 +392,7 @@ $totalPages = ceil($totalProducts / $limit);
                     <p class="text-muted mb-0">&copy; 2025 AlquimiaTechnologic. Desarrollado por AlquimiaTechnologic. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Colombia</p>
+                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Ecuador</p>
                 </div>
             </div>
         </div>
@@ -437,7 +438,7 @@ $totalPages = ceil($totalProducts / $limit);
                         <div class="price mb-3">
                             <span class="h4 text-primary">$99.000</span>
                         </div>
-                        <button class="btn btn-primary w-100 mb-2" onclick="addToCart(${productId})">
+                        <button class="btn btn-primary w-100 mb-2" onclick="addToCart(${productId}, 'Producto Ejemplo', 99000, 'assets/images/placeholder.jpg')">
                             <i class="fas fa-cart-plus me-2"></i>
                             Agregar al Carrito
                         </button>

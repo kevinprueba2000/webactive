@@ -166,7 +166,7 @@
 
 ## 🗺️ Integración Google Maps
 - ✅ Iframe de Google Maps en contacto
-- ✅ Ubicación: Latacunga, Ecuador
+- ✅ Ubicación: Anbato, Ecuador
 - ✅ Diseño responsivo del mapa
 
 ## ✅ Estado Final

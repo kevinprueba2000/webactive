@@ -428,7 +428,7 @@ $userOrders = $order->getOrdersByUserId($_SESSION['user_id']);
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold mb-3">Contacto</h6>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Latacunga, Ecuador</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Anbato, Ecuador</li>
                         <li><i class="fas fa-phone me-2"></i>+593 983015307</li>
                         <li><i class="fas fa-envelope me-2"></i>kevinmoyolema13@gmail.com</li>
                     </ul>
@@ -440,7 +440,7 @@ $userOrders = $order->getOrdersByUserId($_SESSION['user_id']);
                     <p class="text-muted mb-0">&copy; 2025 AlquimiaTechnologic. Desarrollado por AlquimiaTechnologic. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Colombia</p>
+                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Ecuador</p>
                 </div>
             </div>
         </div>

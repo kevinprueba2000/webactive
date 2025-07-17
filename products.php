@@ -275,8 +275,9 @@ $categories = $category->getAllCategories();
                                          class="img-fluid"
                                          loading="lazy"
                                          onerror="this.src='assets/images/placeholder.jpg';">
+                                    <?php $finalPrice = (isset($prod['discount_percentage']) && $prod['discount_percentage'] > 0) ? $prod['price'] * (1 - $prod['discount_percentage']/100) : $prod['price']; ?>
                                     <div class="product-overlay">
-                                        <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $prod['id']; ?>)" title="Agregar al carrito">
+                                        <button class="btn btn-light btn-sm me-2 hover-glow" onclick="addToCart(<?php echo $prod['id']; ?>, '<?php echo addslashes($prod['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $prod['image'] ?: 'assets/images/placeholder.jpg'; ?>')" title="Agregar al carrito">
                                             <i class="fas fa-shopping-cart"></i>
                                         </button>
                                         <button class="btn btn-light btn-sm me-2 hover-glow" onclick="quickView(<?php echo $prod['id']; ?>)" title="Vista rápida">
@@ -340,7 +341,7 @@ $categories = $category->getAllCategories();
                                     </div>
                                     
                                     <div class="d-grid gap-2">
-                                        <button class="btn btn-primary hover-lift" onclick="addToCart(<?php echo $prod['id']; ?>)">
+                                        <button class="btn btn-primary hover-lift" onclick="addToCart(<?php echo $prod['id']; ?>, '<?php echo addslashes($prod['name']); ?>', <?php echo $finalPrice; ?>, '<?php echo $prod['image'] ?: 'assets/images/placeholder.jpg'; ?>')">
                                             <i class="fas fa-cart-plus me-2"></i>
                                             Agregar al Carrito
                                         </button>
@@ -467,7 +468,7 @@ $categories = $category->getAllCategories();
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold mb-3">Contacto</h6>
                     <ul class="list-unstyled text-muted">
-                        <li><i class="fas fa-map-marker-alt me-2"></i>Bogotá, Colombia</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Bogotá, Ecuador</li>
                         <li><i class="fas fa-phone me-2"></i>+57 123 456 7890</li>
                         <li><i class="fas fa-envelope me-2"></i>kevinmoyolema13@gmail.com</li>
                     </ul>
@@ -479,7 +480,7 @@ $categories = $category->getAllCategories();
                     <p class="text-muted mb-0">&copy; 2025 AlquimiaTechnologic. Desarrollado por AlquimiaTechnologic. Todos los derechos reservados.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Colombia</p>
+                    <p class="text-muted mb-0">Hecho con <i class="fas fa-heart text-danger"></i> en Ecuador</p>
                 </div>
             </div>
         </div>
@@ -548,7 +549,7 @@ $categories = $category->getAllCategories();
                         <div class="price mb-3">
                             <span class="h4 text-primary">$99.000</span>
                         </div>
-                        <button class="btn btn-primary w-100" onclick="addToCart(${productId})">
+                        <button class="btn btn-primary w-100" onclick="addToCart(${productId}, 'Producto Ejemplo', 99000, 'assets/images/placeholder.jpg')">
                             <i class="fas fa-cart-plus me-2"></i>
                             Agregar al Carrito
                         </button>

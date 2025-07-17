@@ -41,16 +41,19 @@ function updateCartCount() {
     }
 }
 
-function addToCart(productId, quantity = 1) {
+function addToCart(productId, name, price, image, quantity = 1) {
     // Find if product already exists in cart
     const existingItem = cart.find(item => item.id == productId);
-    
+
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
-        // Get product details (this would typically come from an API call)
+        // Store product details for later display
         cart.push({
             id: productId,
+            name: name,
+            price: price,
+            image: image,
             quantity: quantity,
             timestamp: new Date().toISOString()
         });
@@ -118,6 +121,9 @@ function initializeEventListeners() {
             e.preventDefault();
             const button = e.target.classList.contains('add-to-cart') ? e.target : e.target.closest('.add-to-cart');
             const productId = button.getAttribute('data-product-id') || button.getAttribute('onclick')?.match(/\d+/)?.[0];
+            const name = button.getAttribute('data-product-name');
+            const price = parseFloat(button.getAttribute('data-product-price')) || 0;
+            const image = button.getAttribute('data-product-image');
             const quantity = parseInt(button.getAttribute('data-quantity')) || 1;
             
             if (productId) {
@@ -130,7 +136,7 @@ function initializeEventListeners() {
                 
                 // Simulate API call delay
                 setTimeout(() => {
-                    addToCart(productId, quantity);
+                    addToCart(productId, name, price, image, quantity);
                     
                     // Reset button with success animation
                     button.innerHTML = '<i class="fas fa-check me-2"></i>¡Agregado!';
