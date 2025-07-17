@@ -387,6 +387,9 @@ $product = new Product();
         // Load cart on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadCart();
+            if (typeof updateCartCount === 'function') {
+                updateCartCount();
+            }
         });
     </script>
 </body>
