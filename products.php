@@ -50,6 +50,7 @@ $categories = $category->getAllCategories();
     
     <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>const SITE_URL = '<?php echo SITE_URL; ?>';</script>
 </head>
 <body>
     <!-- Navigation -->
@@ -540,7 +541,7 @@ $categories = $category->getAllCategories();
             content.innerHTML = '<div class="text-center py-5"><div class="spinner-border" role="status"></div></div>';
             modal.show();
 
-            fetch('quick_view.php?id=' + productId)
+            fetch(SITE_URL + '/quick_view.php?id=' + productId)
                 .then(res => res.json())
                 .then(data => {
                     if (!data.success) {
