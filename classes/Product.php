@@ -347,4 +347,3 @@ class Product {
         return 'assets/images/placeholder.jpg';
     }
 }
-?> 
