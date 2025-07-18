@@ -14,11 +14,12 @@ if (!$info) {
 }
 
 $image = Product::getImagePath($info);
-$finalPrice = ($info['discount_percentage'] > 0)
-    ? $info['price'] * (1 - $info['discount_percentage'] / 100)
+$discountPercentage = isset($info['discount_percentage']) ? (float)$info['discount_percentage'] : 0;
+$finalPrice = $discountPercentage > 0
+    ? $info['price'] * (1 - $discountPercentage / 100)
     : $info['price'];
 
-$description = strip_tags($info['description']);
+$description = isset($info['description']) ? strip_tags($info['description']) : '';
 $description = substr($description, 0, 200);
 
 echo json_encode([
@@ -27,7 +28,7 @@ echo json_encode([
     'name' => $info['name'],
     'description' => $description,
     'price' => (float)$info['price'],
-    'discount_percentage' => (float)$info['discount_percentage'],
+    'discount_percentage' => $discountPercentage,
     'final_price' => (float)$finalPrice,
     'image' => $image
 ]);
