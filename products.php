@@ -541,7 +541,7 @@ $categories = $category->getAllCategories();
             content.innerHTML = '<div class="text-center py-5"><div class="spinner-border" role="status"></div></div>';
             modal.show();
 
-            fetch(SITE_URL + '/quick_view.php?id=' + productId)
+            fetch('quick_view.php?id=' + productId)
                 .then(res => res.json())
                 .then(data => {
                     if (!data.success) {
