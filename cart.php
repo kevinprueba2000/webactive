@@ -283,6 +283,9 @@ $product = new Product();
                     </div>
                 `;
                 updateCartSummary();
+                if (typeof updateCartCount === 'function') {
+                    updateCartCount();
+                }
                 return;
             }
             
@@ -334,6 +337,9 @@ $product = new Product();
             
             cartContainer.innerHTML = cartHTML;
             updateCartSummary();
+            if (typeof updateCartCount === 'function') {
+                updateCartCount();
+            }
         }
         
         function updateQuantity(productId, change) {
